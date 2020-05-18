@@ -27,7 +27,6 @@ class listTrain extends Phaser.Physics.Arcade.Sprite {
             list[i].y = this.y - 59;
             list[i].onMove();
         }
-
     }
 
 
@@ -41,15 +40,18 @@ class listTrain extends Phaser.Physics.Arcade.Sprite {
             return min;
         }
     }
+
     addTrain(obj) {
         this.train.add(obj);
         this.sort();
     }
+
     removeTrain(obj) {
         this.train.remove(obj);
 
 
     }
+
     reset() {
         this.train.clear(true, true);
     }

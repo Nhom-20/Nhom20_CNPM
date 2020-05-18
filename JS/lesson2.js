@@ -13,3 +13,4 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+const dis = 33;

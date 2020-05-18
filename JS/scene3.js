@@ -19,6 +19,7 @@ class Scene3 extends Phaser.Scene {
         this.load.image("car19", "./img/Train19.png");
         this.load.image("car20", "./img/Head20.png");
         this.load.image("zone", "./img/zone.png");
+        this.load.image("zone1", "./img/zone1.png");
         this.load.image("cir1", "./img/circle_head.png");
         this.load.image("cir2", "./img/circle_car.png");
         this.load.image("ball", "./img/ball.png");
@@ -35,6 +36,7 @@ class Scene3 extends Phaser.Scene {
 
         this.level = 1;
         this.data = JSON.parse(this.cache.text.get("level")).level;
+        this.text = new Text(this, 100, 100, "Put the train cars from the greatest to the smallest");
         this.setData(this.data[this.level - 1]);
         this.input.on("gameobjectup", this.onStop, this);
         this.input.on("drag", this.onDoDrag, this);
@@ -48,6 +50,12 @@ class Scene3 extends Phaser.Scene {
                 stepX: 107
             }
         });
+
+        this.zoneList = this.zones.getChildren();
+        this.zoneSetAlpha();
+
+        this.zoneDrag = this.add.image(205, 372, "zone1");
+        this.zoneDrag.setVisible(false);
 
         this.balls = this.physics.add.group({
             key: 'ball',
@@ -102,6 +110,14 @@ class Scene3 extends Phaser.Scene {
             gameObject.y = dragY;
         }
 
+        if (gameObject.x > this.trainRoad3.widthRoad() && gameObject.x < (this.trainRoad3.widthRoad() + 107) &&
+            gameObject.y > 210 && gameObject.y < 320
+        ) {
+            this.zoneDrag.setVisible(true);
+        } else {
+            this.zoneDrag.setVisible(false);
+        }
+
     }
 
     onStop(pointer, gameObject) {
@@ -109,6 +125,7 @@ class Scene3 extends Phaser.Scene {
         if (gameObject.x > this.trainRoad3.widthRoad() && gameObject.x < (this.trainRoad3.widthRoad() + 107) &&
             gameObject.y > 210 && gameObject.y < 320
         ) {
+            this.zoneDrag.setVisible(false);
             this.groupTrain3.removeTrain(gameObject);
             this.trainRoad3.addTrain(gameObject);
             if (this.trainRoad3.minTrain() < this.groupTrain3.maxTrain()) {
@@ -120,6 +137,14 @@ class Scene3 extends Phaser.Scene {
                     },
                     loop: false,
                 });
+            } else {
+                this.zoneDrag.x += 107;
+                for (var i = 0; i < this.zoneList.length; i++) {
+                    if (this.zoneList[i].alpha === 0.5) {
+                        this.zoneList[i].alpha = 1;
+                        break;
+                    }
+                }
                 this.sound.play('wrong');
             }
         }
@@ -129,6 +154,8 @@ class Scene3 extends Phaser.Scene {
     reset() {
         this.groupTrain3.reset();
         this.trainRoad3.reset();
+        this.zoneSetAlpha();
+        this.zoneDrag.x = 205;
     }
 
     setData(data) {
@@ -170,5 +197,11 @@ class Scene3 extends Phaser.Scene {
             case 20:
                 return new Train(this, 0, 0, 20, "car20");
         }
+    }
+    zoneSetAlpha() {
+        for (var i = 0; i < this.zoneList.length; i++) {
+            this.zoneList[i].alpha = 0.5;
+        }
+        this.zoneList[0].alpha = 1;
     }
 }
