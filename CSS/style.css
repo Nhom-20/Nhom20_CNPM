@@ -21,6 +21,92 @@ html {
 /* -------------------------------------------------- */
 
 
+/* IMAGE HEADER */
+
+
+/* -------------------------------------------------- */
+
+.img_header {
+    position: fixed;
+    width: 100%;
+    height: 6rem;
+}
+
+
+/* -------------------------------------------------- */
+
+
+/* HEADER */
+
+
+/* -------------------------------------------------- */
+
+header {
+    position: absolute;
+    width: 100%;
+    height: 3rem;
+    background-color: rgb(240, 238, 238);
+    margin-top: 6rem;
+}
+
+.main {
+    font-size: 1.2rem;
+    list-style: none;
+    margin-left: 8.5rem;
+    margin-top: 0.5rem;
+}
+
+.type:hover,
+.type:active {
+    color: rgb(250, 87, 87);
+}
+
+.main li {
+    display: inline-block;
+    margin-right: 1.5rem;
+}
+
+.main li a {
+    text-decoration: none;
+    color: rgb(121, 121, 121);
+    font-weight: 700;
+}
+
+.main li .type1 {
+    color: black;
+}
+
+.btn {
+    display: grid;
+    grid-template-columns: 5rem 5rem;
+    grid-gap: 1rem;
+    float: right;
+    margin-right: 7rem;
+    margin-top: -0.2rem;
+    font-weight: 700;
+}
+
+.btn a {
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.invite {
+    text-align: center;
+    color: rgb(250, 87, 87);
+    border: rgb(250, 87, 87) solid 0.1rem;
+    border-radius: 10%;
+}
+
+.acc {
+    text-align: center;
+    color: rgb(121, 121, 121);
+}
+
+
+/* -------------------------------------------------- */
+
+
 /* TITLE */
 
 
@@ -28,6 +114,7 @@ html {
 
 .title {
     position: absolute;
+    right: 30%;
     margin-top: 10rem;
     margin-left: 20rem;
     font-weight: 850;
